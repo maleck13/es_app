@@ -8,7 +8,7 @@
     "mongodb": "^2.2.25",
     "mysql": "^2.13.0",
     "redis": "^2.7.0",
-    "unified-push-node-sender":"0.16.0"
+    "unifiedpush-node-sender":"0.16.0"
   },
   "devDependencies": {
     "grunt-concurrent": "latest",
