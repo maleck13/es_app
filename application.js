@@ -1,6 +1,7 @@
+'use strict';
 var express = require('express');
 var cors = require('cors');
-
+var fs = require('fs')
 // list the endpoints which you want to make securable here
 var securableEndpoints;
 securableEndpoints = ['/hello'];
@@ -15,8 +16,13 @@ app.use('/sys', require('./lib/sys')());
 
 // allow serving of static files from the public directory
 app.use(express.static(__dirname + '/public'));
+const config = {};
+if(process.env.UPS_CONFIG_PATH && process.env.UPS_CONFIG_PATH !== "" ){
+   const conf = require(process.env.UPS_CONFIG_PATH);
+   config["push"] = conf
+}
 
-app.use('/hello', require('./lib/hello.js')());
+app.use('/hello', require('./lib/hello.js')(config));
 
 var port = process.env.FH_PORT || process.env.OPENSHIFT_NODEJS_PORT || 8001;
 var host = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
